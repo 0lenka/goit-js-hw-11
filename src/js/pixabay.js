@@ -10,7 +10,8 @@ export default class ApiService {
     constructor() {
         this.searchQuery = '';
         this.page = 1;
-        this.perPage = 100;
+        this.perPage = 40;
+        
     }
 
     async fetchPictures() {
@@ -18,7 +19,7 @@ export default class ApiService {
         const response = await axios.get(url)
         this.incrementPage()
         return await response;
-        
+                
     }
 
     incrementPage() {
@@ -29,6 +30,7 @@ export default class ApiService {
         this.page = 1;
     }
 
+
     get query() {
         return this.searchQuery;
     }
@@ -36,4 +38,5 @@ export default class ApiService {
     set query(newQuery) {
         this.searchQuery = newQuery;
     }
+
 };

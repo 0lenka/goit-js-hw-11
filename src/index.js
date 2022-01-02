@@ -22,8 +22,7 @@ function onSearch(e) {
     apiService.query = e.currentTarget.elements.searchQuery.value;
     apiService.resetPage();
     apiService.fetchPictures().then(renderPictures)
-   
-   
+     
 };
 
 function onLoadMore() {
@@ -34,15 +33,19 @@ function renderPictures(response) {
     console.log(response)
      
     refs.galleryContainer.insertAdjacentHTML('beforeend', template(response.data.hits))
-    showLoadMoreBtn()
-    
-    if (response.data.totalHits === 0) {
-        Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-        hideLoadMoreBtn();
-    }
-    else if (apiService.perPage > response.data.hits.length) {
+      
+
+    if (apiService.perPage > response.data.hits.length) {
         Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
         hideLoadMoreBtn();
+    }
+
+    else if (response.data.totalHits === 0) {
+        Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+    }
+       
+    else if (response.data.totalHits > 0) {
+        showLoadMoreBtn()
     }
 }
  
